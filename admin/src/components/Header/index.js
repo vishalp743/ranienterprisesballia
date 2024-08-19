@@ -91,7 +91,7 @@ const Header = () => {
                         <div className="col-sm-2 part1 pr-0">
                             <Link to={'/'} className="d-flex align-items-center logo">
                                 <img src={logo} />
-                                <span className="ml-2">ECOMMERCE</span>
+                                <span className="ml-2">RANI ENTERPRISES</span>
                             </Link>
                         </div>
 
