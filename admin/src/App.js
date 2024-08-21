@@ -19,6 +19,8 @@ import SubCatList from "./pages/Category/subCategoryList";
 import AddProductRAMS from "./pages/Products/addProductRAMS";
 import ProductWeight from "./pages/Products/addProductWeight";
 import  ProductSize from './pages/Products/addProductSize';
+import OfferBanner from './pages/OfferBanner'
+import OfferBanner2 from './pages/OfferBanner2'
 import  Orders from './pages/Orders';
 import  AddHomeBannerSlide from './pages/HomeBanner/addHomeSlide';
 import  HomeBannerSlideList from './pages/HomeBanner/homeSlideList';
@@ -213,6 +215,8 @@ function App() {
               <Route path="/homeBannerSlide/add" exact={true} element={<AddHomeBannerSlide />} />
               <Route path="/homeBannerSlide/list" exact={true} element={<HomeBannerSlideList />} />
               <Route path="/homeBannerSlide/edit/:id" exact={true} element={<EditHomeBannerSlide />} />
+              <Route path="/offerBanner" exact={true} element={<OfferBanner />} />
+              <Route path="/offerBanner2" exact={true} element={<OfferBanner2 />} />
             </Routes>
           </div>
         </div>

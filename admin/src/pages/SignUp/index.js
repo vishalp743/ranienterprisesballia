@@ -340,10 +340,10 @@ const SignUp = () => {
 
                                 </form>
 
-                                <span className='text-center d-block mt-3'>
+                                {/* <span className='text-center d-block mt-3'>
                                     Don't have an account?
                                     <Link to={'/login'} className='link color ml-2'>Sign In</Link>
-                                </span>
+                                </span> */}
 
                             </div>
 

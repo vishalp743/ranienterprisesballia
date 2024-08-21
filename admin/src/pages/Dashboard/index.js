@@ -58,6 +58,7 @@ const Dashboard = () => {
     const [totalProducts, setTotalProducts] = useState();
     const [totalProductsReviews, setTotalProductsReviews] = useState();
     const [totalSales, setTotalSales] = useState();
+    const [userEmail, setUserEmail] = useState('');
 
     const open = Boolean(anchorEl);
 
@@ -66,6 +67,10 @@ const Dashboard = () => {
     const context = useContext(MyContext);
 
     useEffect(() => {
+
+
+        const userData = JSON.parse(localStorage.getItem('user'));
+        setUserEmail(userData?.email || '');
 
         context.setisHideSidebarAndHeader(false);
         window.scrollTo(0, 0);
@@ -324,7 +329,10 @@ const Dashboard = () => {
                                                             <Button className="success" color="success"><FaPencilAlt /></Button>
                                                         </Link>
 
-                                                        <Button className="error" color="error" onClick={() => deleteProduct(item?.id)}><MdDelete /></Button>
+                                                        {userEmail === "admin.ranienterprisesballia@gmail.com" && (
+                                                        <Button className="error" color="error" onClick={() => deleteProduct(item?.id)}
+                                                         ><MdDelete /></Button>
+                                                        )}
                                                     </div>
                                                 </td>
                                             </tr>

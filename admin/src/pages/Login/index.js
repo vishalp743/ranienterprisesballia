@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import Logo from '../../assets/images/logo.webp';
+import Logo from '../../assets/images/Mainlogo.png';
 import patern from '../../assets/images/pattern.webp';
 import { MyContext } from '../../App';
 import { MdEmail } from "react-icons/md";
@@ -248,7 +248,10 @@ const Login = () => {
                 <div className="loginBox">
                     <div className='logo text-center'>
                         <img src={Logo} width="60px" />
-                        <h5 className='font-weight-bold'>Login to Hotash</h5>
+
+                        <br/>
+
+                        <h5 className='font-weight-bold'>Login With Rani Enterprises</h5>
                     </div>
 
                     <div className='wrapper mt-3 card border'>
@@ -281,7 +284,7 @@ const Login = () => {
                                 </Button>
                             </div>
 
-                            <div className='form-group text-center mb-0'>
+                            {/* <div className='form-group text-center mb-0'>
                                 <Link to={'/forgot-password'} className="link">FORGOT PASSWORD</Link>
                                 <div className='d-flex align-items-center justify-content-center or mt-3 mb-3'>
                                     <span className='line'></span>
@@ -293,17 +296,17 @@ const Login = () => {
                                     <img src={googleIcon} width="25px" /> &nbsp; Sign In with Google
                                 </Button>
 
-                            </div>
+                            </div> */}
 
                         </form>
                     </div>
 
-                    <div className='wrapper mt-3 card border footer p-3'>
+                    {/* <div className='wrapper mt-3 card border footer p-3'>
                         <span className='text-center'>
                             Don't have an account?
                             <Link to={'/signUp'} className='link color ml-2'>Register</Link>
                         </span>
-                    </div>
+                    </div> */}
 
                 </div>
             </section>

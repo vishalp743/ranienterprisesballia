@@ -1,5 +1,7 @@
 const { HomeBanner } = require('../models/homeBanner');
 const { ImageUpload } = require('../models/imageUpload');
+const OfferBanner = require('../models/OfferBanner');
+const Banner = require('../models/banner');
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
@@ -30,6 +32,32 @@ const storage = multer.diskStorage({
 
 
 const upload = multer({ storage: storage })
+
+router.get('/fetchveroffer', async (req, res) => {
+    try {
+      const banner = await Banner.findOne({ name: 'offerbanner' }).sort({ createdAt: -1 });
+      if (!banner) {
+        return res.status(404).json({ message: 'No banner found' });
+      }
+      res.json({ image1: banner.image1, image2: banner.image2 });
+    } catch (error) {
+      console.error('Server error:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
+  router.get('/offerfetch', async (req, res) => {
+    try {
+      const offerBanner = await OfferBanner.findOne().sort({ createdAt: -1 });
+      if (!offerBanner) {
+        return res.status(404).json({ message: 'No offer banner found' });
+      }
+      res.json(offerBanner);
+    } catch (error) {
+      console.error('Server error:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
 
 router.post(`/upload`, upload.array("images"), async (req, res) => {
     imagesArr=[];
@@ -208,6 +236,61 @@ router.put('/:id', async (req, res) => {
     res.send(slideItem);
 
 })
+
+
+
+
+  router.post('/uploadofferBanner', upload.fields([{ name: 'image1' }, { name: 'image2' }]), async (req, res) => {
+    try {
+      const uploadPromises = Object.values(req.files).map(file => 
+        cloudinary.uploader.upload(file[0].path)
+      );
+  
+      const results = await Promise.all(uploadPromises);
+  
+      const newBanner = new Banner({
+        image1: results[0].secure_url,
+        image2: results[1].secure_url
+      });
+  
+      await newBanner.save();
+  
+      res.status(201).json({ message: 'Banner images uploaded successfully' });
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      res.status(500).json({ message: 'Error uploading images' });
+    }
+  });
+
+  router.post('/offeradd', upload.fields([
+    { name: 'image1', maxCount: 1 },
+    { name: 'image2', maxCount: 1 },
+    { name: 'image3', maxCount: 1 }
+  ]), async (req, res) => {
+    try {
+      const uploadPromises = Object.values(req.files).map(file => 
+        cloudinary.uploader.upload(file[0].path)
+      );
+  
+      const results = await Promise.all(uploadPromises);
+  
+      const newOfferBanner = new OfferBanner({
+        image1: results[0].secure_url,
+        image2: results[1].secure_url,
+        image3: results[2].secure_url
+      });
+  
+      await newOfferBanner.save();
+  
+      res.status(201).json({ message: 'Offer banner images uploaded successfully' });
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      res.status(500).json({ message: 'Error uploading images' });
+    }
+  });
+  
+
+  
 
 
 

@@ -1,7 +1,7 @@
 
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import logo from '../../assets/images/logo.png';
+import logo from '../../assets/images/Mainlogo.png';
 import Button from '@mui/material/Button';
 import { MdMenuOpen } from "react-icons/md";
 import { MdOutlineMenu } from "react-icons/md";
@@ -90,7 +90,7 @@ const Header = () => {
                         {/* Logo Wraooer */}
                         <div className="col-sm-2 part1 pr-0">
                             <Link to={'/'} className="d-flex align-items-center logo">
-                                <img src={logo} />
+                                <img src={logo} style={{height: '60px',width: '60px', borderRadius: 15}}/>
                                 <span className="ml-2">RANI ENTERPRISES</span>
                             </Link>
                         </div>
@@ -112,12 +112,9 @@ const Header = () => {
                             }
                                 
                             </Button>
-                            <Button className="rounded-circle mr-3"><IoCartOutline /></Button>
-
-                            <Button className="rounded-circle mr-3"><MdOutlineMailOutline /></Button>
-
-
-                            <div className='dropdownWrapper position-relative'>
+                            {/* <Button className="rounded-circle mr-3"><IoCartOutline /></Button>
+                            <Button className="rounded-circle mr-3"><MdOutlineMailOutline /></Button> */}
+                            {/* <div className='dropdownWrapper position-relative'>
                                 <Button className="rounded-circle mr-3"
                                     onClick={handleOpenotificationsDrop}><FaRegBell /></Button>
 
@@ -284,7 +281,7 @@ const Header = () => {
                                     </div>
 
                                 </Menu>
-                            </div>
+                            </div> */}
 
                             {
                                 context.isLogin !== true ?

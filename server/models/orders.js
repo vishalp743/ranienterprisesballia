@@ -63,6 +63,9 @@ const ordersSchema = mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    billPdf: {
+        type: String
+    },
 
 })
 

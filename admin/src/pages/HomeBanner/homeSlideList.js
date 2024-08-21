@@ -46,10 +46,15 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
 const HomeSlidesList = () => {
 
     const [slideList, setSlideList] = useState([]);
+    const [userEmail, setUserEmail] = useState('');
 
     const context = useContext(MyContext);
 
     useEffect(() => {
+
+        const userData = JSON.parse(localStorage.getItem('user'));
+        setUserEmail(userData?.email || '');
+
         window.scrollTo(0, 0);
         context.setProgress(20)
         fetchDataFromApi('/api/homeBanner').then((res) => {
@@ -139,8 +144,9 @@ const HomeSlidesList = () => {
                                                     <div className="actions d-flex align-items-center">
                                                         <Link to={`/homeBannerSlide/edit/${item.id}`}   >                                         <Button className="success" color="success"><FaPencilAlt /></Button>
                                                         </Link>
-
+                                                        {userEmail === "admin.ranienterprisesballia@gmail.com" && (         
                                                         <Button className="error" color="error" onClick={() => deleteSlide(item.id)}><MdDelete /></Button>
+                                                        )}
                                                     </div>
                                                 </td>
                                             </tr>

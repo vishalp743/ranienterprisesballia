@@ -128,10 +128,19 @@ const Sidebar = () => {
 
 
                     <li>
-                        <NavLink exact activeClassName='is-active' to="/addoffer">
-                            <Button className={`w-100 ${activeTab === 3 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(3)}>
+                        <NavLink exact activeClassName='is-active' to="/offerBanner">
+                            <Button className={`w-100 ${activeTab === 5 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(5)}>
                                 <span className='icon'> <FaClipboardCheck fontSize="small" /></span>
-                                Add Offers
+                                Add Banner
+                            </Button>
+                        </NavLink>
+                    </li>
+
+                    <li>
+                        <NavLink exact activeClassName='is-active' to="/offerBanner2">
+                            <Button className={`w-100 ${activeTab === 6 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(6)}>
+                                <span className='icon'> <FaClipboardCheck fontSize="small" /></span>
+                                Add Offer
                             </Button>
                         </NavLink>
                     </li>
@@ -145,6 +154,9 @@ const Sidebar = () => {
                 <div className='logoutWrapper'>
                     <div className='logoutBox'>
                         <Button variant="contained" onClick={logout}><IoMdLogOut /> Logout</Button>
+                    </div>
+                    <div>
+                        <p style={{textAlign: 'center'}}>Powered By <a href="https://dizilight.com/" target="_blank">Dizilight Corporation </a></p>
                     </div>
                 </div>
 

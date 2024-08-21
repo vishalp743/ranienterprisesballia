@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
 const PaymentStatus = () => {
     const [status, setStatus] = useState('Checking payment status...');
-    const [cartData, setCartData] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -33,14 +31,18 @@ const PaymentStatus = () => {
 
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/orders/create`, orderData);
-            if (response.data) {
+            if (response.data.success) {
                 localStorage.removeItem('pendingOrder');
                 
                 await clearCart(orderData.userid);
 
                 setStatus('Order placed successfully');
-                // Optionally, navigate to a success page
-                // navigate('/order-success');
+
+                // Refresh the page and redirect after 1 second
+                setTimeout(() => {
+                    window.location.reload();
+                    navigate('/orders');
+                }, 2000);
             } else {
                 setStatus('Error creating order');
             }
@@ -54,6 +56,7 @@ const PaymentStatus = () => {
         try {
             await axios.delete(`${process.env.REACT_APP_API_URL}/api/cart/clear/${userId}`);
             console.log('Cart cleared successfully');
+            navigate('/orders');
         } catch (error) {
             console.error('Error clearing cart:', error);
         }
@@ -63,6 +66,7 @@ const PaymentStatus = () => {
         <div>
             <h2>Payment Status</h2>
             <p>{status}</p>
+            <a href="/orders">Show Orders</a>
         </div>
     );
 };

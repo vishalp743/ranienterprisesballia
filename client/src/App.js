@@ -23,6 +23,7 @@ import { fetchDataFromApi, postData } from "./utils/api";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import PaymentStatus from "./Pages/Checkout/PaymentStatus";
+import Policies from "./Pages/TermsandPolicies"
 
 const MyContext = createContext();
 
@@ -269,6 +270,7 @@ function App() {
           <Route exact={true} path="/my-account" element={<MyAccount />} />
           <Route exact={true} path="/search" element={<SearchPage />} />
           <Route exact={true} path="/payment-status" element={<PaymentStatus />} />
+          <Route exact={true} path="/policies" element={<Policies />} />
         </Routes>
         {isHeaderFooterShow === true && <Footer />}
 

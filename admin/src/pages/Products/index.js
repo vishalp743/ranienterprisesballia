@@ -69,6 +69,7 @@ const Products = () => {
     const [totalCategory,setTotalCategory] = useState();
     const [totalSubCategory,setTotalSubCategory] = useState();
     const [isLoadingBar, setIsLoadingBar] = useState(false);
+    const [userEmail, setUserEmail] = useState('');
     const open = Boolean(anchorEl);
 
     const context = useContext(MyContext);
@@ -78,6 +79,11 @@ const Products = () => {
     const ITEM_HEIGHT = 48;
 
     useEffect(() => {
+
+        const userData = JSON.parse(localStorage.getItem('user'));
+        setUserEmail(userData?.email || '');
+
+        
         window.scrollTo(0, 0);
         context.setProgress(40);
         fetchDataFromApi("/api/products?page=1&perPage=8").then((res) => {
@@ -350,18 +356,19 @@ const Products = () => {
 
                                                 <td>
                                                     <div className="actions d-flex align-items-center">
-
+                                                   
                                                         <Link to={`/product/details/${item.id}`}>
                                                             <Button className="secondary" color="secondary"><FaEye /></Button>
                                                         </Link>
-
+                                                    
 
                                                         <Link to={`/product/edit/${item.id}`}>
                                                             <Button className="success" color="success"><FaPencilAlt /></Button>
                                                         </Link>
-
+                                                        {userEmail === "admin.ranienterprisesballia@gmail.com" && (
                                                         <Button className="error" color="error" onClick={() => deleteProduct(item?.id)}
                                                          disabled={isLoadingBar===true ? true : false}><MdDelete /></Button>
+                                                        )}
                                                     </div>
                                                 </td>
                                             </tr>

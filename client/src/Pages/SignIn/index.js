@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import Logo from "../../assets/images/Mainlogo.jpeg";
+import Logo from "../../assets/images/Mainlogo.png";
 import { MyContext } from "../../App";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -205,7 +205,7 @@ const SignIn = () => {
       <div className="container">
         <div className="box card p-3 shadow border-0">
           <div className="text-center">
-            <img src={Logo} style={{ width: '100px', height: '100px' }} />
+          <img src={Logo} alt='Logo' style={{ width: '60px', height: '60px', backgroundColor:'black', borderRadius: 15 }} />
           </div>
 
           <form className="mt-3" onSubmit={login}>

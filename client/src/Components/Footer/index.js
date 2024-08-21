@@ -19,8 +19,8 @@ const Footer = () => {
                     <div className="row">
                         <div className="col-md-6">
                             {/* <p className="text-white mb-1">$20 discount for your first order</p> */}
-                            <h3 className="text-white">Join our newsletter and get...</h3>
-                            <p className="text-light">Join our email subscription now to get updates on<br /> promotions and coupons.</p>
+                            <h3 className="text-white">Join To Get Latest Update of new Collection..</h3>
+                            <p className="text-light">Join our email subscription now to get updates on<br /> new arrivels and coupons.</p>
 
 
                             <form className="mt-4">
@@ -72,47 +72,47 @@ const Footer = () => {
                                 <li><Link to="#">Samsung</Link></li>
                                 <li><Link to="#">Redmi</Link></li>
                                 <li><Link to="#">Motorela</Link></li>
+                                <li><Link to="#">OnePlus</Link></li>
                                 
                             </ul>
                         </div>
 
                         <div className="col">
-                            <h5>Laptop</h5>
-                            {/* <ul>
-                                <li><Link to="#">Fresh Vegetables</Link></li>
-                                <li><Link to="#">Herbs & Seasonings</Link></li>
-                                <li><Link to="#">Fresh Fruits</Link></li>
-                                <li><Link to="#">Cuts & Sprouts</Link></li>
-                                <li><Link to="#">Exotic Fruits & Veggies</Link></li>
-                                <li><Link to="#">Packaged Produce</Link></li>
-                                <li><Link to="#">Party Trays</Link></li>
-                            </ul> */}
+                            <h5></h5>
+                            <br/>
+                            <ul>
+                                <li><Link to="#">Nokia</Link></li>
+                                <li><Link to="#">Techno</Link></li>
+                                <li><Link to="#">Motorola</Link></li>
+                                <li><Link to="#">Vivo</Link></li>
+                                <li><Link to="#">Realme</Link></li>
+                                <li><Link to="#">Google</Link></li>
+                                
+                            </ul>
                         </div>
 
                         <div className="col">
-                            <h5>Storage Devices</h5>
-                            {/* <ul>
-                                <li><Link to="#">Fresh Vegetables</Link></li>
-                                <li><Link to="#">Herbs & Seasonings</Link></li>
-                                <li><Link to="#">Fresh Fruits</Link></li>
-                                <li><Link to="#">Cuts & Sprouts</Link></li>
-                                <li><Link to="#">Exotic Fruits & Veggies</Link></li>
-                                <li><Link to="#">Packaged Produce</Link></li>
-                                <li><Link to="#">Party Trays</Link></li>
-                            </ul> */}
+                            <h5>Links</h5>
+                            <ul>
+                                <li><Link to="/policies" target="_blank">Terms & Condition</Link></li>
+                                <li><Link to="/policies" target="_blank">Privacy & Policy</Link></li>
+                                <li><Link to="/policies" target="_blank">Return & Refund</Link></li>
+                                <li><Link to="/policies" target="_blank">Cancellation Policy</Link></li>
+                                
+                            </ul>
                         </div>
 
                         <div className="col">
-                            <h5>Home Aplliances</h5>
-                            {/* <ul>
-                                <li><Link to="#">Fresh Vegetables</Link></li>
-                                <li><Link to="#">Herbs & Seasonings</Link></li>
-                                <li><Link to="#">Fresh Fruits</Link></li>
-                                <li><Link to="#">Cuts & Sprouts</Link></li>
-                                <li><Link to="#">Exotic Fruits & Veggies</Link></li>
-                                <li><Link to="#">Packaged Produce</Link></li>
-                                <li><Link to="#">Party Trays</Link></li>
-                            </ul> */}
+                            <h5>Address</h5>
+                            <p>Station Road, Malgodam Rd, Ballia, Uttar Pradesh 277001</p>
+                            <h5>Contact</h5>
+                            <ul>
+                                <p><Link to="#">+91 8931917099</Link></p>
+                                <p><Link to="#">contact@ranienterprisesballia.com</Link></p>
+                                
+                                
+                            </ul>
+                            
                         </div>
 
                         
@@ -122,10 +122,10 @@ const Footer = () => {
 
                     <div className="copyright mt-3 pt-3 pb-3 d-flex">
                         <p className="mb-0">© Rani Enterprises. All Rights Reserved.br
-                        Designed & Developed by Dizilight Corporation</p>
+                        Designed & Developed by <a href="https://dizilight.com/" target="_blank">Dizilight Corporation</a></p>
                         <ul className="list list-inline ml-auto mb-0 socials">
                             <li className="list-inline-item">
-                                <Link to="#"><FaFacebookF /></Link>
+                                <Link to=""><FaFacebookF /></Link>
                             </li>
 
                             <li className="list-inline-item">
@@ -133,7 +133,7 @@ const Footer = () => {
                             </li>
 
                             <li className="list-inline-item">
-                                <Link to="#"><FaInstagram /></Link>
+                                <Link to="https://www.instagram.com/ranienterprisesofficial?igsh=cjcya3k1eDJ6Y3p1"><FaInstagram /></Link>
                             </li>
                         </ul>
                     </div>

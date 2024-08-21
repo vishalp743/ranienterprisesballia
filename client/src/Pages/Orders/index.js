@@ -66,6 +66,8 @@ const Orders = () => {
                                     <th>User Id</th>
                                     <th>Order Status</th>
                                     <th>Date</th>
+                                    <th>Bill PDF</th>
+
                                 </tr>
                             </thead>
 
@@ -86,12 +88,19 @@ const Orders = () => {
                                                     <td>{order?.email}</td>
                                                     <td>{order?.userid}</td>
                                                     <td>
-                                                        {order?.status === "pending" ?
-                                                            <span className='badge badge-danger'>{order?.status}</span> :
+                                                        {order?.status === "Cancelled" ? (
+                                                            <span className='badge badge-danger'>{order?.status}</span>
+                                                        ) : order?.status === "Pending" ? (
+                                                            <span className='badge badge-secondary'>{order?.status}</span>
+                                                        ) : (
                                                             <span className='badge badge-success'>{order?.status}</span>
-                                                        }
+                                                        )}
                                                     </td>
                                                     <td>{order?.date}</td>
+                                                    <td>
+                                                    <a href={`${process.env.REACT_APP_API_URL}/${order?.billPdf}`} target="_blank">Download</a>
+                                                    </td>
+
                                                 </tr>
 
                                             </>

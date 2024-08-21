@@ -149,6 +149,7 @@ const ProductDetails = () => {
             cartFields.productId = productData?.id
             cartFields.countInStock = productData?.countInStock
             cartFields.userId = user?.userId
+            
 
 
             context.addToCart(cartFields);
@@ -307,7 +308,6 @@ const ProductDetails = () => {
                                 </div>
                             }
 
-
                             {
                                 productData?.productWeight?.length !== 0 &&
                                 <div className='productSize d-flex align-items-center'>
@@ -379,14 +379,14 @@ const ProductDetails = () => {
                                         }}
                                     >Description</Button>
                                 </li>
-                                <li className='list-inline-item'>
+                                {/* <li className='list-inline-item'>
                                     <Button className={`${activeTabs === 1 && 'active'}`}
                                         onClick={() => {
                                             setActiveTabs(1)
 
                                         }}
                                     >Additional info</Button>
-                                </li>
+                                </li> */}
                                 <li className='list-inline-item'>
                                     <Button className={`${activeTabs === 2 && 'active'}`}
                                         onClick={() => {
@@ -410,7 +410,7 @@ const ProductDetails = () => {
                             }
 
 
-                            {
+                            {/* {
                                 activeTabs === 1 &&
 
                                 <div className='tabContent'>
@@ -506,7 +506,7 @@ const ProductDetails = () => {
                                     </div>
                                 </div>
 
-                            }
+                            } */}
 
 
 

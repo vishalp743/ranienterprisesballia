@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import ProductItem from "../../Components/ProductItem";
 import HomeCat from "../../Components/HomeCat";
+import axios from 'axios';
 
 import offer from "../../assets/images/offer.jpeg";
 import banner4 from "../../assets/images/banner4.jpg";
@@ -25,6 +26,8 @@ const Home = () => {
   const [selectedCat, setselectedCat] = useState();
   const [filterData, setFilterData] = useState([]);
   const [homeSlides, setHomeSlides] = useState([]);
+  const [bannerImages, setBannerImages] = useState({ image1: '', image2: '' });
+  const [offerImages, setOfferImages] = useState({ image1: '', image2: '', image3: '' });
 
   const [value, setValue] = React.useState(0);
 
@@ -85,6 +88,40 @@ const Home = () => {
     }
   }, [selectedCat]);
 
+  useEffect(() => {
+    setIsLoading(true);
+    fetchDataFromApi(`/api/homeBanner/fetchveroffer`)
+      .then((res) => {
+        if (res && res.image1 && res.image2) {
+          setBannerImages(res);
+        } else {
+          console.error('Unexpected response format:', res);
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching banner images:', error);
+        setIsLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    const fetchOfferImages = () => {
+      setIsLoading(true);
+      fetchDataFromApi('/api/homeBanner/offerfetch')
+        .then((res) => {
+          setOfferImages(res);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching offer images:', error);
+          setIsLoading(false);
+        });
+    };
+
+    fetchOfferImages();
+  }, []);
+
   return (
     <>
       {homeSlides?.length !== 0 && <HomeBanner data={homeSlides} />}
@@ -98,13 +135,12 @@ const Home = () => {
           <div className="row homeProductsRow">
             <div className="col-md-3">
               <div className="sticky">
-                <div className="banner">
-                  <img src={banner1} className="cursor w-100" />
-                </div>
-
-                <div className="banner mt-4">
-                  <img src={banner2} className="cursor w-100" />
-                </div>
+              <div className="banner">
+                <img src={bannerImages.image1} className="cursor w-100" alt="Banner 1" />
+              </div>
+              <div className="banner mt-4">
+                <img src={bannerImages.image2} className="cursor w-100" alt="Banner 2" />
+              </div>
               </div>
             </div>
 
@@ -182,18 +218,34 @@ const Home = () => {
               </div>
 
               <div className="d-flex mt-4 mb-3 bannerSec">
-                <div className="banner">
-                  <img src={offer} className="cursor w-100" />
-                </div>
+              {Object.values(offerImages)
+                .slice(1, 4)
+                .map((image, index) => (
+                  <div
+                    className="banner"
+                    key={index}
+                    style={{
+                      border: '2px solid black',
+                      boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.5)',
+                    }}
+                  >
+                    <img
+                      src={image}
+                      className="cursor w-100"
+                      alt={`Offer ${index + 1}`}
+                      onLoad={(e) => {
+                        setTimeout(() => {
+                          e.target.src = e.target.src.split("?")[0] + "?" + new Date().getTime();
+                        }, 6000); // 5 seconds delay
+                      }}
+                    />
 
-                <div className="banner">
-                  <img src={offer} className="cursor w-100" />
-                </div>
 
-                <div className="banner">
-                  <img src={offer} className="cursor w-100" />
-                </div>
-              </div>
+                  </div>
+
+                ))}
+            </div>
+
 
               <div className="d-flex align-items-center mt-4">
                 <div className="info w-75">
