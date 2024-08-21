@@ -1,6 +1,6 @@
 const { HomeBanner } = require('../models/homeBanner');
 const { ImageUpload } = require('../models/imageUpload');
-const OfferBanner = require('../models/OfferBanner');
+const OfferBanner = require('../models/offerBanner');
 const Banner = require('../models/banner');
 const express = require('express');
 const router = express.Router();

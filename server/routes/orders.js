@@ -205,7 +205,12 @@ router.post('/create', async (req, res) => {
 
         // PDF options
         const pdfOptions = {
-            format: 'A4'
+            format: 'A4',
+            childProcessOptions: {
+                env: {
+                    OPENSSL_CONF: '/dev/null'
+                }
+            }
         };
 
         // Save the PDF to the `uploads` directory

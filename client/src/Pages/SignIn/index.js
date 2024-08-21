@@ -39,7 +39,7 @@ const SignIn = () => {
 
   const login = (e) => {
     e.preventDefault();
-
+  
     if (formfields.email === "") {
       context.setAlertBox({
         open: true,
@@ -48,7 +48,7 @@ const SignIn = () => {
       });
       return false;
     }
-
+  
     if (formfields.password === "") {
       context.setAlertBox({
         open: true,
@@ -57,33 +57,36 @@ const SignIn = () => {
       });
       return false;
     }
-
+  
+    // Get the temporary user ID from localStorage
+    const tempUserId = localStorage.getItem("tempUserId");
+  
     setIsLoading(true);
-    postData("/api/user/signin", formfields).then((res) => {
+    postData("/api/user/signin", { ...formfields, tempUserId }).then((res) => {
       try {
         if (res.error !== true) {
           localStorage.setItem("token", res.token);
-
+  
           const user = {
             name: res.user?.name,
             email: res.user?.email,
             userId: res.user?.id,
           };
-
+  
           localStorage.setItem("user", JSON.stringify(user));
-
+          localStorage.removeItem("tempUserId");
+  
           context.setAlertBox({
             open: true,
             error: false,
             msg: res.msg,
           });
-
+  
           setTimeout(() => {
             history("/");
             context.setIsLogin(true);
             setIsLoading(false);
             context.setisHeaderFooterShow(true);
-            //window.location.href = "/";
           }, 2000);
         } else {
           context.setAlertBox({
@@ -101,84 +104,80 @@ const SignIn = () => {
   };
 
   const signInWithGoogle = () => {
-    
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
-
-        const fields={
-            name:user.providerData[0].displayName,
-            email: user.providerData[0].email,
-            password: null,
-            images:user.providerData[0].photoURL,
-            phone:user.providerData[0].phoneNumber
-        }
-
+  
+        const tempUserId = localStorage.getItem("tempUserId");
+  
+        const fields = {
+          name: user.providerData[0].displayName,
+          email: user.providerData[0].email,
+          password: null,
+          images: user.providerData[0].photoURL,
+          phone: user.providerData[0].phoneNumber,
+          tempUserId: tempUserId,
+        };
+  
         postData("/api/user/authWithGoogle", fields).then((res) => {
-            try {
-              if (res.error !== true) {
-                localStorage.setItem("token", res.token);
-      
-                const user = {
-                  name: res.user?.name,
-                  email: res.user?.email,
-                  userId: res.user?.id,
-                };
-      
-                localStorage.setItem("user", JSON.stringify(user));
-      
-                context.setAlertBox({
-                  open: true,
-                  error: false,
-                  msg: res.msg,
-                });
-      
-                setTimeout(() => {
-                  history("/");
-                  context.setIsLogin(true);
-                  setIsLoading(false);
-                  context.setisHeaderFooterShow(true);
-                  //window.location.href = "/";
-                }, 2000);
-              } else {
-                context.setAlertBox({
-                  open: true,
-                  error: true,
-                  msg: res.msg,
-                });
+          try {
+            if (res.error !== true) {
+              localStorage.setItem("token", res.token);
+  
+              const user = {
+                name: res.user?.name,
+                email: res.user?.email,
+                userId: res.user?.id,
+              };
+  
+              localStorage.setItem("user", JSON.stringify(user));
+              localStorage.removeItem("tempUserId");
+  
+              context.setAlertBox({
+                open: true,
+                error: false,
+                msg: res.msg,
+              });
+  
+              setTimeout(() => {
+                history("/");
+                context.setIsLogin(true);
                 setIsLoading(false);
-              }
-            } catch (error) {
-              console.log(error);
+                context.setisHeaderFooterShow(true);
+              }, 2000);
+            } else {
+              context.setAlertBox({
+                open: true,
+                error: true,
+                msg: res.msg,
+              });
               setIsLoading(false);
             }
-          });
-
+          } catch (error) {
+            console.log(error);
+            setIsLoading(false);
+          }
+        });
+  
         context.setAlertBox({
           open: true,
           error: false,
           msg: "User authentication Successfully!",
         });
-
-       // window.location.href = "/";
       })
       .catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
         const email = error.customData.email;
-        // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         context.setAlertBox({
           open: true,
           error: true,
           msg: errorMessage,
         });
-        // ...
       });
   };
 

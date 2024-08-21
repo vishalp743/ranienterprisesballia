@@ -57,18 +57,20 @@ function App() {
   });
 
 
-  useEffect(()=>{
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (
-      user?.userId !== "" &&
-      user?.userId !== undefined &&
-      user?.userId !== null
-    ) {
-      fetchDataFromApi(`/api/cart?userId=${user?.userId}`).then((res) => {
+  useEffect(() => {
+    let userId = JSON.parse(localStorage.getItem("user"))?.userId;
+  
+    // Check if temporary user ID exists in localStorage
+    if (!userId) {
+      userId = localStorage.getItem("tempUserId");
+    }
+  
+    if (userId !== "" && userId !== undefined && userId !== null) {
+      fetchDataFromApi(`/api/cart?userId=${userId}`).then((res) => {
         setCartData(res);
       });
     }
-  },[isLogin]);
+  }, [isLogin]);
 
   useEffect(() => {
     getCountry("https://countriesnow.space/api/v0.1/countries/");
@@ -114,8 +116,14 @@ function App() {
   }, []);
 
   const getCartData = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    fetchDataFromApi(`/api/cart?userId=${user?.userId}`).then((res) => {
+    let userId = JSON.parse(localStorage.getItem("user"))?.userId;
+  
+    // Check if temporary user ID exists in localStorage
+    if (!userId) {
+      userId = localStorage.getItem("tempUserId");
+    }
+  
+    fetchDataFromApi(`/api/cart?userId=${userId}`).then((res) => {
       setCartData(res);
     });
   };
@@ -158,37 +166,42 @@ function App() {
   };
 
   const addToCart = (data) => {
-    if (isLogin === true) {
-      setAddingInCart(true);
-      postData(`/api/cart/add`, data).then((res) => {
-        if (res.status !== false) {
-          setAlertBox({
-            open: true,
-            error: false,
-            msg: "Item is added in the cart",
-          });
-
-          setTimeout(() => {
-            setAddingInCart(false);
-          }, 1000);
-
-          getCartData();
-        } else {
-          setAlertBox({
-            open: true,
-            error: true,
-            msg: res.msg,
-          });
+    setAddingInCart(true);
+  
+    // Check if temporary user ID exists in localStorage
+    let userId = isLogin
+      ? JSON.parse(localStorage.getItem("user"))?.userId
+      : localStorage.getItem("tempUserId") || generateTempUserId();
+  
+    postData(`/api/cart/add`, { ...data, userId }).then((res) => {
+      if (res.status !== false) {
+        setAlertBox({
+          open: true,
+          error: false,
+          msg: "Item is added in the cart",
+        });
+  
+        setTimeout(() => {
           setAddingInCart(false);
-        }
-      });
-    } else {
-      setAlertBox({
-        open: true,
-        error: true,
-        msg: "Please login first",
-      });
-    }
+        }, 1000);
+  
+        getCartData();
+      } else {
+        setAlertBox({
+          open: true,
+          error: true,
+          msg: res.msg,
+        });
+        setAddingInCart(false);
+      }
+    });
+  };
+  
+  // Function to generate a temporary user ID
+  const generateTempUserId = () => {
+    const tempUserId = Math.floor(Math.random() * 1000000);
+    localStorage.setItem("tempUserId", tempUserId);
+    return tempUserId;
   };
 
   const values = {

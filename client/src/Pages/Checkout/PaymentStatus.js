@@ -37,6 +37,9 @@ const PaymentStatus = () => {
                 await clearCart(orderData.userid);
 
                 setStatus('Order placed successfully');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
 
                 
             } else {
@@ -62,7 +65,7 @@ const PaymentStatus = () => {
         <div>
             <h2>Payment Status</h2>
             <p>{status}</p>
-            <a href="/orders">Show Orders</a>
+            <a href="#/orders">Show Orders</a>
         </div>
     );
 };

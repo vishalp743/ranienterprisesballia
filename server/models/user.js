@@ -1,33 +1,33 @@
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
-    name:{
-        type:String,
-        required:true
+    name: {
+        type: String,
+        required: true
     },
-    phone:{
-        type:String,
-        unique:true
+    phone: {
+        type: String,
+        default: null, // The unique constraint is not applied here
     },
-    email:{
-        type:String,
-        required:true,
-        unique:true
+    email: {
+        type: String,
+        required: true,
+        unique: true // Email is still unique
     },
-    password:{
-        type:String,
+    password: {
+        type: String,
     },
-    images:[
+    images: [
         {
-            type:String,
-            required:true
+            type: String,
+            required: true
         }
     ],
-    isAdmin:{
+    isAdmin: {
         type: Boolean,
         default: false,
     }
-})
+});
 
 userSchema.virtual('id').get(function () {
     return this._id.toHexString();

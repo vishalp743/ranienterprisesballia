@@ -24,41 +24,49 @@ router.get(`/`, async (req, res) => {
 
 router.post('/add', async (req, res) => {
 
-    const cartItem = await Cart.find({productId:req.body.productId, userId: req.body.userId});
+  
+    // Check if userId is a temporary ID
+    let userId = req.body.userId;
 
-    if(cartItem.length===0){
-        let cartList = new Cart({
-            productTitle: req.body.productTitle,
-            image: req.body.image,
-            rating: req.body.rating,
-            price: req.body.price,
-            quantity: req.body.quantity,
-            subTotal: req.body.subTotal,
-            productId: req.body.productId,
-            userId: req.body.userId,
-            countInStock:req.body.countInStock,
+if (!isNaN(userId)) {
+  // If userId is a numeric string, it's a temporary ID
+  userId = userId;
+} else {
+  // If userId is not a number, it's the actual user ID
+  userId = req.body.userId;
+}
+
+  
+    const cartItem = await Cart.findOne({ productId: req.body.productId, userId: userId });
+  
+    if (!cartItem) {
+      let cartList = new Cart({
+        productTitle: req.body.productTitle,
+        image: req.body.image,
+        rating: req.body.rating,
+        price: req.body.price,
+        quantity: req.body.quantity,
+        subTotal: req.body.subTotal,
+        productId: req.body.productId,
+        userId: userId,
+        countInStock: req.body.countInStock,
+      });
+  
+      if (!cartList) {
+        return res.status(500).json({
+          error: err,
+          success: false,
         });
-    
-    
-    
-        if (!cartList) {
-            res.status(500).json({
-                error: err,
-                success: false
-            })
-        }
-    
-    
-        cartList = await cartList.save();
-    
-        res.status(201).json(cartList);
-    }else{
-        res.status(401).json({status:false,msg:"Product already added in the cart"})
+      }
+  
+      cartList = await cartList.save();
+  
+      res.status(201).json(cartList);
+    } else {
+      res.status(401).json({ status: false, msg: "Product already added in the cart" });
     }
-
-   
-
-});
+  });
+  
 router.delete('/clear/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
