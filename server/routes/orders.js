@@ -74,7 +74,7 @@ router.get(`/get/count`, async (req, res) => {
 
 router.get(`/get/count2`, async (req, res) => {
     const merchantTransactionId = req.query.id;
-    const merchantId = 'PGTESTPAYUAT86';
+    const merchantId = 'M22631F0KI5IH';
     const keyIndex = 1;
     const string = `/pg/v1/status/${merchantId}/${merchantTransactionId}` + salt_key;
     const sha256 = crypto.createHash('sha256').update(string).digest('hex');
@@ -82,7 +82,7 @@ router.get(`/get/count2`, async (req, res) => {
 
     const options = {
         method: 'GET',
-        url: `https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status/${merchantId}/${merchantTransactionId}`,
+        url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${merchantId}/${merchantTransactionId}`,
         headers: {
             accept: 'application/json',
             'Content-Type': 'application/json',
@@ -94,9 +94,9 @@ router.get(`/get/count2`, async (req, res) => {
     // CHECK PAYMENT STATUS
     axios.request(options).then(async (response) => {
         if (response.data.success === true) {
-            res.redirect(`${process.env.CLIENT_BASE_URL}/payment-status`);
+            res.redirect(`${process.env.CLIENT_BASE_URL}/#payment-status`);
         } else {
-            res.redirect(`${process.env.CLIENT_BASE_URL}/payment-failed`);
+            res.redirect(`${process.env.CLIENT_BASE_URL}/#payment-failed`);
         }
     })
     .catch((error) => {
@@ -311,8 +311,8 @@ router.put('/:id', async (req, res) => {
 
 })
 
-let salt_key = '96434309-7796-489d-8924-ab56988a6076';
-let merchant_id = 'PGTESTPAYUAT86';
+let salt_key = '1a46b248-35b4-4bc7-970c-67747605666f';
+let merchant_id = 'M22631F0KI5IH';
 
 router.post("/order", async (req, res) => {
     try {
@@ -340,7 +340,7 @@ router.post("/order", async (req, res) => {
         const checksum = sha256 + '###' + keyIndex;
 
         
-        const prod_URL = "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay"
+        const prod_URL = "https://api.phonepe.com/apis/hermes/pg/v1/pay"
 
         const options = {
             method: 'POST',

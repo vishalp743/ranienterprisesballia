@@ -38,11 +38,7 @@ const PaymentStatus = () => {
 
                 setStatus('Order placed successfully');
 
-                // Refresh the page and redirect after 1 second
-                setTimeout(() => {
-                    window.location.reload();
-                    navigate('/orders');
-                }, 2000);
+                
             } else {
                 setStatus('Error creating order');
             }
@@ -56,7 +52,7 @@ const PaymentStatus = () => {
         try {
             await axios.delete(`${process.env.REACT_APP_API_URL}/api/cart/clear/${userId}`);
             console.log('Cart cleared successfully');
-            navigate('/orders');
+            
         } catch (error) {
             console.error('Error clearing cart:', error);
         }
