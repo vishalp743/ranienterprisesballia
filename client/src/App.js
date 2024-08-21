@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import "./responsive.css";
-import { BrowserRouter, Route, Router, Routes, json } from "react-router-dom";
+import { BrowserRouter, Route, Router, Routes, json, HashRouter } from "react-router-dom";
 import Home from "./Pages/Home";
 import Listing from "./Pages/Listing";
 import ProductDetails from "./Pages/ProductDetails";
@@ -222,7 +222,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <MyContext.Provider value={values}>
         <Snackbar
           open={alertBox.open}
@@ -276,7 +276,7 @@ function App() {
 
         {isOpenProductModal === true && <ProductModal data={productData} />}
       </MyContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

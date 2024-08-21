@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, HashRouter } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 import Dashboard from './pages/Dashboard';
@@ -157,9 +157,8 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <MyContext.Provider value={values}>
-
         <LoadingBar
           color='#f11946'
           progress={progress}
@@ -179,7 +178,6 @@ function App() {
           </Alert>
         </Snackbar>
 
-
         {
           isHideSidebarAndHeader !== true &&
           <Header />
@@ -191,7 +189,6 @@ function App() {
               <Sidebar />
             </div>
           }
-
 
           <div className={`content ${isHideSidebarAndHeader === true && 'full'} ${isToggleSidebar === true ? 'toggle' : ''}`}>
             <Routes>
@@ -221,7 +218,7 @@ function App() {
           </div>
         </div>
       </MyContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
